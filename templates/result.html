@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ASD Screening Result</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/background-image.png');
+            background-size: cover;
+            background-position: center;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #fff;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 50px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            text-align: center;
+            width: 80%;
+            max-width: 1200px;
+        }
+        h1 {
+            color: #acdd39;
+            font-size: 2.5rem;
+        }
+        p {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        /* Button Styling */
+        .btn-link {
+            display: inline-block;
+            background-color: #d4d2d0;
+            color: #000;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            margin: 10px 0; 
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-link:hover {
+            background-color: #ffcc66;
+        }
+
+        /* Styles for Tabs */
+        .tab {
+            overflow: hidden;
+            background-color: #444;
+            border-radius: 10px;
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .tab button {
+            background-color: #555;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 20px;
+            transition: 0.3s;
+            font-size: 1.5rem;
+            color: #fff;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        .tab button:hover {
+            background-color: #666;
+        }
+
+        .tab button.active {
+            background-color: #ffeb3b;
+            color: #000;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            margin-top: 10px;
+            transition: opacity 0.3s ease, max-height 0.3s ease;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Prediction Result</h1>
+    <p>{{ result }}</p>
+    <a href="/" class="btn-link">Try Again</a>
+
+    <!-- Tabbed Interface 
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Diet')">Diet</button>
+        <button class="tablinks" onclick="openTab(event, 'Doctors')">Doctors</button>
+        <button class="tablinks" onclick="openTab(event, 'Books')">Books</button>
+        <button class="tablinks" onclick="openTab(event, 'Games')">Games</button>
+    </div>
+
+    <div id="Diet" class="tab-content">
+        <h3 style="font-size: 2rem; color: #3bc1ff; text-align: center;">Diet for ASD Recovery</h3>
+        <div style="text-align: left; font-size: 1.5rem;">
+             <a href="https://amzn.eu/d/gvpc9Up" target="_blank" class="btn-link">Soya Milk</a><br>
+             <a href="https://amzn.eu/d/8HxCmP1" target="_blank" class="btn-link">Tofu (Soya Paneer)</a><br>
+             <a href="https://amzn.eu/d/ihqxcu4" target="_blank" class="btn-link">Fish Oil Capsules </a><br>
+             <a href="https://amzn.eu/d/1juDacj" target="_blank" class="btn-link">Ragi Atta</a><br>
+            <a href="https://amzn.eu/d/1juDacj" target="_blank" class="btn-link">Probiotic & Multivitamin </a><br>
+            <a href="https://amzn.eu/d/ewdFgTj" target="_blank" class="btn-link"> Organic Jaggery Powder</a><br>
+             <a href="https://amzn.eu/d/a5S1wlY" target="_blank" class="btn-link">Fox Nuts (Makhana)</a><br>
+             <a href="https://amzn.eu/d/23M8XTG" target="_blank" class="btn-link">Flax Seeds Oil</a><br>
+             <a href="https://amzn.eu/d/coCrd7g" target="_blank" class="btn-link">Hulled Buckwheat</a><br>
+             <a href="https://amzn.eu/d/1clo6Sw" target="_blank" class="btn-link">Rice</a><br>
+             <a href="https://amzn.eu/d/b2svxB9" target="_blank" class="btn-link">Cold Pressed Virgin Coconut Oil</a><br>
+             <a href="https://amzn.eu/d/cERJkJK" target="_blank" class="btn-link">Cold Pressed Mustard Oil</a><br>
+        </div>
+    </div>
+
+    <div id="Doctors" class="tab-content">
+        <h3 style="font-size: 2rem; color: #3bc1ff; text-align: center;">Doctors</h3>
+        <p style="font-size: 1.5rem; color: #fff;">Dr. Pranjali Saxena, a renowned pediatric neurologist at Apollo Hospital Lucknow, emphasizes the importance of early intervention and treatment for children with autism. She believes that a collaborative approach involving parents, caregivers, therapists, and doctors is crucial for the successful management of the disorder.</p>
+        <p style="font-size: 2rem; color:#3bc1ff;">Contact Information:</p>
+        <div style="text-align: left; font-size: 1.5rem;">
+            Official Website:  <a href="https://lucknow.apollohospitals.com/" target="_blank" class="btn-link">Apollo Hospital Lucknow</a><br>
+             <a href="https://facebook.com/apollomedicshospitals" target="_blank" class="btn-link">Facebook: /apollomedicshospitals</a><br>
+             <a href="https://instagram.com/apollomedics_hospitals" target="_blank" class="btn-link">Instagram: /apollomedics_hospitals</a><br>
+             <a href="https://twitter.com/apollomedics" target="_blank" class="btn-link">Twitter: /apollomedics</a><br>
+            <a href="https://pinterest.com/apollomedics" target="_blank" class="btn-link">Pinterest: /apollomedics </a><br>
+            Contact: 8429021972 for any enquiry.<br>
+            Email: <a href="mailto:ask_us@apollohospitals.com" class="btn-link">ask_us@apollohospitals.com</a><br>
+           <a href="https://www.askapollo.com/lucknow" target="_blank" class="btn-link"> Book Appointment: </a><br>
+        </div>
+        <p style="font-size: 1.5rem; color: #fff;">Homeopathy Doctor - Dr Vikas Sharma (M.D)</p>
+        <p style="font-size: 1.5rem; color: #fff;">Contact: +91 9815299965 | Email: <a href="mailto:vikas@drhomeo.com" class="btn-link">vikas@drhomeo.com</a></p>
+    </div>
+
+    <div id="Books" class="tab-content">
+        <h3 style="font-size: 2rem; color: #3bc1ff; text-align: center;">Books for Speech Therapy</h3>
+        <div style="text-align: left; font-size: 1.5rem;">
+            Amazon Book Link 1 <a href="https://amzn.in/d/1EUA16F" target="_blank" class="btn-link">URL</a><br>
+            Amazon Book Link 2 <a href="https://amzn.in/d/5n9Mwhb" target="_blank" class="btn-link">URL</a><br>
+        </div>
+        <p style="font-size: 1.5rem; color: #fff;">Sharing how to start speech therapy at home with 3 simple techniques:</p>
+        <div style="text-align: left; font-size: 1.5rem;">
+            1. Improve vocalization<br>
+            2. Use pictures and picture books<br>
+            3. Incorporate silence/pause<br>
+        </div>
+        <p style="font-size: 1.5rem; color: #fff;">For personal one-to-one online video consultation and guidance, contact: <a href="mailto:askanamika10@gmail.com" class="btn-link">askanamika10@gmail.com</a></p>
+    </div>
+
+    <div id="Games" class="tab-content">
+        <h3 style="font-size: 2rem; color: #3bc1ff; text-align: center;">Games for Children with ASD</h3>
+        <p style="font-size: 1.5rem; color: #fff;">Explore popular games adapted for children with autism:</p>
+        <a href="https://blog.stageslearning.com/blog/12-popular-games-adapted-for-children-with-autism" target="_blank" class="btn-link">Visit the Games Website</a>
+    </div>
+</div>
+
+-->
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+            tabcontent[i].style.opacity = "0";
+            tabcontent[i].style.maxHeight = "0";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        document.getElementById(tabName).style.opacity = "1";
+        document.getElementById(tabName).style.maxHeight = "1000px";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</body>
+</html>
